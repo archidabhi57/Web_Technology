@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Snake Game!</title>
+</head>
+<style type="text/css">
+	
+	/*.body{
+		/*background-color: gray;
+	}*/
+	
+	#title{
+		color: blue;
+		text-align: center;
+	}
+	#table{
+		font-weight: bold;
+		font-size: 30px;
+		display: flex;
+		justify-content: flex-end;
+		padding-top: 0px;
+	}
+	#imgOfSnake{
+		position: absolute;
+		top: 200px;
+		left: 500px;
+		width: 120px;
+		height: 120px;
+		mix-blend-mode: multiply;
+	}
+	#foodOfSnake{
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 800px;
+		left: 500px;
+		mix-blend-mode: multiply;
+	}
+	#areaOfGame{
+		background-color: #86e778;
+		width: 100%;
+		height: 500px;
+	}
+	
+</style>
+<body onload="changeLocationOfFood()" onkeydown="moveControl(event)">
+	<span><h1 id="title"> Snake Game </h1></span>
+	<div>
+		<img src="snakeimg.png"id="imgOfSnake">
+	</div>
+
+	<div>
+		<img src="reddot.png" id="foodOfSnake">
+	</div>
+	<div id="table">
+		<table >
+		<tr class="text1" style="color: red">
+			<td>Life : </td>
+			<td id="lifeCount">3</td>
+		</tr>
+		<tr class="text2" style="color: green">
+			<td>Score</td>
+			<td> : </td>
+			<td id="score">0</td>
+		</tr>
+		</table>
+	</div>
+	
+	<div id="areaOfGame"></div>
+</body>
+	<script>
+		var image=document.getElementById("imgOfSnake");
+		var food=document.getElementById("foodOfSnake");
+		var life=document.getElementById("lifeCount");
+		var gameOver='<img  style=margin-left:400px src="gameOver.jpg">'
+		var lifeCount = 3, scoreCount=0;
+		var l,r,u,d,foodTop,foodLeft,t1,t2;
+		var left=500;
+		var t=200;
+		var flagL=true,flagR=true,flagU=true,flagD=true;
+
+		function startGoingLeft()
+		{
+			clearInterval(r);
+			clearInterval(u);
+			clearInterval(d);
+			if(flagL)
+			{
+				flagL=false;
+				flagR=true;
+				flagU=true;
+				flagD=true;
+				l=setInterval(goLeft,10);
+			}
+
+		}
+
+		function goLeft()
+		{
+			checkMatchingPosition();
+			left--;
+			if(left<=0)
+			{
+				checkBoundry();
+			}
+			image.style.left=left +"px";
+			image.style.transform= "rotate(0deg)";
+		}
+
+		function startGoingRight()
+		{
+			clearInterval(l);
+			clearInterval(u);
+			clearInterval(d);
+			if(flagR)
+			{
+				flagR=false;
+				flagL=true;
+				flagU=true;
+				flagD=true;
+				r=setInterval(goRight,10);
+			}
+
+		}
+
+		function goRight()
+		{
+			checkMatchingPosition();
+			left++;
+			if(left>=screen.availWidth-130)
+			{
+				checkBoundry();
+			}
+			image.style.left=left +"px";
+			image.style.transform="scaleX(-1)";
+		}
+
+		function startGoingUp()
+		{
+			clearInterval(l);
+			clearInterval(r);
+			clearInterval(d);
+			if(flagU)
+			{
+				flagU=false;
+				flagL=true;
+				flagR=true;
+				flagD=true;
+				u=setInterval(goUp,10);
+			}
+			
+		}
+
+		function goUp()
+		{
+			checkMatchingPosition();
+			t--;
+			if(t<130)
+			{
+				checkBoundry();
+			}
+			image.style.top=t +"px";
+			image.style.transform="rotate(90deg)";
+		}
+
+		function startGoingDown()
+		{
+			clearInterval(l);
+			clearInterval(r);
+			clearInterval(u);
+			if(flagD)
+			{
+				flagD=false;
+				flagL=true;
+				flagR=true;
+				flagU=true;
+				d=setInterval(goDown,10);
+			}
+		}
+
+		function goDown()
+		{
+			checkMatchingPosition();
+			t++;
+			if(t>screen.availHeight-200)
+			{
+				checkBoundry();
+			}
+			image.style.top=t +"px";
+			image.style.transform="rotate(270deg)";
+
+		}
+
+		function moveControl(event){
+			if(event.keyCode==37){
+				startGoingLeft();
+			}
+			else if(event.keyCode==38){
+				startGoingUp();
+			}
+			else if(event.keyCode==39){
+				startGoingRight();
+			}
+			else if(event.keyCode==40){
+				startGoingDown();
+			}
+		}
+
+		function changeLocationOfFood()
+		{
+			var food=document.getElementById("foodOfSnake");
+			foodTop = Math.random()*screen.availHeight-150;
+			foodLeft = Math.random()*screen.availWidth-100;
+			// console.log(foodTop)
+			if(foodLeft<screen.availWidth && foodTop>150)
+			{
+				if(foodLeft>0 && foodTop<screen.availHeight && foodLeft<screen.availWidth && foodTop>0)
+				{
+					food.style.top=foodTop+"px";
+					food.style.left=foodLeft+"px";
+				}
+				else
+				{
+					changeLocationOfFood();
+				}
+			}
+			else
+			{
+				changeLocationOfFood();
+			}
+
+		}
+
+		function checkMatchingPosition()
+		{
+			t1=parseInt(foodTop)
+			l1=parseInt(foodLeft) 
+			if(left<=l1+50 && left>=l1-50 && t<=t1+50 && t>=t1-50 )
+			{
+
+				scoreCount++;
+				score.innerHTML=scoreCount;
+				changeLocationOfFood();
+			}	 	
+		}
+
+		function checkBoundry()
+		{
+			left=500;
+			t=200;
+			lifeCount--
+
+			if(lifeCount<=0)
+			{
+		
+				document.write(gameOver);
+				clearInterval(l);
+				clearInterval(d);
+				clearInterval(u);
+				clearInterval(r);
+			}
+			life.innerHTML=lifeCount;
+		}
+		
+	</script>
+</html>

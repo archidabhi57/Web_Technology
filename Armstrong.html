@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Armstorng</title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+			n = parseInt(prompt("Enter No = "));
+
+			a=0;
+			temp=n;
+
+
+			while(n>0){
+				
+				n1 = n%10;
+
+				a = a + (n1*n1*n1);
+
+				n = parseInt(n/10);
+
+			}
+
+
+		if(temp==a){
+			document.write("Armstrong Number");
+		}	
+
+		else{
+			document.write("Not Armstrong Number");
+		}	
+
+
+
+	</script>
+</body>
+</html>

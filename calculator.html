@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="calculator.css">
+</head>
+<body>
+	<table  align="center" cellpadding="4" cellspacing="2" class="tb">
+		<tr>
+			<td colspan="6"><input type="text" Id="text1" class="t1"></td>
+		</tr>
+		<tr align="center">
+			<td></td>
+			<td><input type="button"value="C" onclick="clear1()" class="bt1"></td>
+			<td><input type="button"value="dlt" onclick="delete1()" class="bt2"></td>
+			<td><input type="button"value="/" onclick="Insert('/')" class="bt3"></td>
+
+		</tr>
+
+		<tr align="center">
+			<td><input type="button"value="7" onclick="Insert(7)" class="bt4"></td>
+			<td><input type="button"value="8" onclick="Insert(8)" class="bt5"></td>
+			<td><input type="button"value="9" onclick="Insert(9)" class="bt6"></td>
+			<td><input type="button"value="*" onclick="Insert('*')" class="bt7"></td>
+		</tr>
+
+		<tr align="center">
+			<td><input type="button"value="4" onclick="Insert(4)" class="bt8"></td>
+			<td><input type="button"value="5" onclick="Insert(5)" class="bt9"></td>
+			<td><input type="button"value="6" onclick="Insert(6)" class="bt10"></td>
+			<td><input type="button"value="-" onclick="Insert('-')" class="bt11"></td>
+		</tr>
+
+		<tr align="center">
+			<td><input type="button"value="1" onclick="Insert(1)" class="bt12"></td>
+			<td><input type="button"value="2" onclick="Insert(2)" class="bt13"></td>
+			<td><input type="button"value="3" onclick="Insert(3)" class="bt14"></td>
+			<td><input type="button"value="+" onclick="Insert('+')" class="bt15"></td>
+		</tr>
+
+		<tr align="center">
+			<td><input type="button"value="+/-" onclick="addsub('+/-')" class="bt16"></td>
+			<td><input type="button"value="0" onclick="Insert(0)" class="bt17"></td>
+			<td><input type="button"value="." onclick="Insert('.')" class="bt18"></td>
+			<td><input type="button"value="=" onclick="equal('=')" class="bt19"></td>
+		</tr>
+	</table>
+		<script>
+			function Insert(n)
+			{
+				document.getElementById("text1").value = document.getElementById("text1").value+n;
+			}
+			function equal()
+			{
+				document.getElementById("text1").value = eval(document.getElementById("text1").value);
+			}
+			function clear1()
+			{
+				document.getElementById("text1").value = " ";
+			}
+			function addsub()
+			{
+				document.getElementById("text1").value = document.getElementById("text1").value*(-1);
+			}
+			function delete1()
+			{
+				document.getElementById("text1").value = text1.value.substring(0,text1.value.length-1);
+			}
+		</script>
+</body>
+</html>
